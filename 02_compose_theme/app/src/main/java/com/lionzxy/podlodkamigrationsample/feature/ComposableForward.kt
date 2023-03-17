@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lionzxy.podlodkamigrationsample.R
+import com.lionzxy.podlodkamigrationsample.utils.LocalPallet
 
 @Composable
 fun ComposableForward(
@@ -37,7 +38,10 @@ fun ComposableForward(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = forwardState.chain)
+            Text(
+                text = forwardState.chain,
+                color = LocalPallet.current.accent
+            )
             Button(onClick = onForward) {
                 Text(stringResource(R.string.forward_main_btn))
             }

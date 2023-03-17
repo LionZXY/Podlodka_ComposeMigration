@@ -16,7 +16,9 @@ abstract class ComposeFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                RenderView()
+                AppTheme {
+                    RenderView()
+                }
             }
         }
     }

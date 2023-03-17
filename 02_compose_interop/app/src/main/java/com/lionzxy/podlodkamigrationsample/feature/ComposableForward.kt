@@ -1,5 +1,6 @@
 package com.lionzxy.podlodkamigrationsample.feature
 
+import android.widget.Button
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.lionzxy.podlodkamigrationsample.R
 
 @Composable
@@ -41,9 +43,16 @@ fun ComposableForward(
             Button(onClick = onForward) {
                 Text(stringResource(R.string.forward_main_btn))
             }
-            Button(onClick = onFullscreen) {
-                Text(stringResource(R.string.forward_fullscreen_btn))
-            }
+            AndroidView(
+                factory = { context ->
+                    Button(context).apply {
+                        text = context.getString(R.string.forward_fullscreen_btn)
+                        setOnClickListener {
+                            onFullscreen()
+                        }
+                    }
+                }
+            )
         }
     }
 }

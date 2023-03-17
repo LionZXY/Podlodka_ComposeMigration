@@ -1,0 +1,44 @@
+package com.lionzxy.podlodkamigrationsample.feature
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import com.github.terrakok.cicerone.Router
+import com.github.terrakok.cicerone.androidx.FragmentScreen
+import com.lionzxy.podlodkamigrationsample.App
+
+data class ForwardState(
+    val title: String,
+    val chain: String = ""
+)
+
+class ForwardViewModel(
+    containerName: String,
+    number: Int,
+    router: Router
+) : ViewModel(), ForwardView {
+    var forwardState by mutableStateOf(
+        ForwardState(
+            title = containerName
+        )
+    )
+        private set
+
+    private val presenter = ForwardPresenter(
+        viewState = this,
+        container = containerName,
+        number = number,
+        router = router
+    )
+
+    fun onForwardFullScreen() = presenter.onForwardFullScreen()
+
+    fun onForward() = presenter.onForward()
+
+    fun onBack() = presenter.onBack()
+
+    override fun onChainSetUp(chain: String) {
+        forwardState = forwardState.copy(chain = chain)
+    }
+}

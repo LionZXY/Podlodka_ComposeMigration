@@ -6,10 +6,11 @@ import com.lionzxy.podlodkamigrationsample.App
 import moxy.MvpPresenter
 
 class ForwardPresenter(
+    private val viewState: ForwardView,
     private val container: String,
     private val number: Int,
     private val router: Router
-) : MvpPresenter<ForwardView>() {
+) {
 
     fun onForwardFullScreen() {
         App.INSTANCE.router.navigateTo(FragmentScreen {
@@ -25,8 +26,7 @@ class ForwardPresenter(
 
     fun onBack() = router.exit()
 
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
+    init {
         viewState.onChainSetUp(createChain(number))
     }
 

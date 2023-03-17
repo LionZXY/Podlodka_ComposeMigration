@@ -3,4 +3,6 @@
     <string name="tab_android">Android</string>
     <string name="tab_bug">Bug</string>
     <string name="tab_dog">Dog</string>
+    <string name="forward_main_btn">Forward</string>
+    <string name="forward_fullscreen_btn">Fullscreen</string>
 </resources>

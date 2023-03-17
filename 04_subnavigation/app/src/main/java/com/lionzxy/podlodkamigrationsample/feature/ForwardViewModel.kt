@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.lionzxy.podlodkamigrationsample.App
@@ -16,7 +17,7 @@ data class ForwardState(
 class ForwardViewModel(
     containerName: String,
     number: Int,
-    router: Router
+    navController: NavController
 ) : ViewModel(), ForwardView {
     var forwardState by mutableStateOf(
         ForwardState(
@@ -29,7 +30,7 @@ class ForwardViewModel(
         viewState = this,
         container = containerName,
         number = number,
-        router = router
+        navController = navController
     )
 
     fun onForwardFullScreen() = presenter.onForwardFullScreen()

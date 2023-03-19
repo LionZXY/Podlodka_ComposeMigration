@@ -8,21 +8,27 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.lionzxy.podlodkamigrationsample.utils.GlobalNavController
 
 fun NavGraphBuilder.forwardFeature(
     navController: NavController,
-    container: String
+    defaultContainer: String
 ) {
     composable(
-        route = "forward?number={number}",
+        route = "forward?number={number}&container={container}",
         arguments = listOf(
             navArgument("number") {
                 type = NavType.IntType
                 defaultValue = 0
+            },
+            navArgument("container") {
+                type = NavType.StringType
+                defaultValue = defaultContainer
             }
         )
     ) { entry ->
         val number = entry.arguments?.getInt("number")!!
+        val container = entry.arguments?.getString("container")!!
         val viewModel: ForwardViewModel = viewModel(
             factory = ForwardViewModelFactory(
                 containerName = container,
@@ -30,15 +36,19 @@ fun NavGraphBuilder.forwardFeature(
                 navController = navController
             )
         )
+        val globalNavController = GlobalNavController.current
         ComposableForward(
             forwardState = viewModel.forwardState,
             onForward = viewModel::onForward,
             onBack = viewModel::onBack,
-            onFullscreen = viewModel::onForwardFullScreen
+            onFullscreen = { viewModel.onForwardFullScreen(globalNavController) }
         )
     }
 }
 
-fun NavController.toForward(container: String, number: Int) {
-    navigate("forward?container=${Uri.encode(container)}&number=${Uri.encode(number.toString())}")
+fun NavController.toForward(number: Int, container: String? = null) {
+    val route = if (container == null) {
+        "forward?number=${Uri.encode(number.toString())}"
+    } else "forward?container=${Uri.encode(container)}&number=${Uri.encode(number.toString())}"
+    navigate(route)
 }

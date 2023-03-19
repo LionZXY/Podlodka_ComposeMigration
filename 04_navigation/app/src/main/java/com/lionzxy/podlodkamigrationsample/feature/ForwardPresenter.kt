@@ -1,11 +1,8 @@
 package com.lionzxy.podlodkamigrationsample.feature
 
 import androidx.navigation.NavController
-import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.lionzxy.podlodkamigrationsample.App
-import com.lionzxy.podlodkamigrationsample.bottombar.TabContainerFragment
-import moxy.MvpPresenter
 
 class ForwardPresenter(
     private val viewState: ForwardView,
@@ -14,14 +11,12 @@ class ForwardPresenter(
     private val navController: NavController
 ) {
 
-    fun onForwardFullScreen() {
-        App.INSTANCE.router.navigateTo(FragmentScreen {
-            TabContainerFragment.getNewInstance(container)
-        })
+    fun onForwardFullScreen(navController: NavController) {
+        navController.toForward(0)
     }
 
     fun onForward() {
-        navController.toForward(container, number + 1)
+        navController.toForward(number + 1, container)
     }
 
     fun onBack() {

@@ -33,7 +33,8 @@ class ForwardViewModel(
         navController = navController
     )
 
-    fun onForwardFullScreen() = presenter.onForwardFullScreen()
+    fun onForwardFullScreen(navController: NavController) =
+        presenter.onForwardFullScreen(navController)
 
     fun onForward() = presenter.onForward()
 

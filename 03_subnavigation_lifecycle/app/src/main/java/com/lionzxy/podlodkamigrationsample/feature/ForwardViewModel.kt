@@ -39,6 +39,9 @@ class ForwardViewModel(
 
     fun onBack() = presenter.onBack()
 
+    fun onResume() = Unit
+    fun onPause() = Unit
+
     override fun onChainSetUp(chain: String) {
         forwardState = forwardState.copy(chain = chain)
     }

@@ -9,19 +9,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import com.lionzxy.podlodkamigrationsample.R
 import com.lionzxy.podlodkamigrationsample.utils.LocalPallet
+import com.lionzxy.podlodkamigrationsample.utils.OnLifecycleEvent
 
 @Composable
 fun ComposableForward(
     forwardState: ForwardState,
     onForward: () -> Unit = {},
     onFullscreen: () -> Unit = {},
-    onBack: () -> Unit = {}
+    onBack: () -> Unit = {},
+    viewModel: ForwardViewModel
 ) {
     Scaffold(
         topBar = {
@@ -47,6 +51,13 @@ fun ComposableForward(
             }
             Button(onClick = onFullscreen) {
                 Text(stringResource(R.string.forward_fullscreen_btn))
+            }
+        }
+        OnLifecycleEvent { event ->
+            when(event) {
+                Lifecycle.Event.ON_RESUME -> viewModel.onResume()
+                Lifecycle.Event.ON_PAUSE -> viewModel.onPause()
+                else -> {}
             }
         }
     }

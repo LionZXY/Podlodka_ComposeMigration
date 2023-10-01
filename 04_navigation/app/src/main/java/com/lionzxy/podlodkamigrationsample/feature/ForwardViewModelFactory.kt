@@ -3,7 +3,6 @@ package com.lionzxy.podlodkamigrationsample.feature
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import com.github.terrakok.cicerone.Router
 
 class ForwardViewModelFactory(
     private val containerName: String,

@@ -1,8 +1,6 @@
 package com.lionzxy.podlodkamigrationsample.feature
 
 import androidx.navigation.NavController
-import com.github.terrakok.cicerone.androidx.FragmentScreen
-import com.lionzxy.podlodkamigrationsample.App
 
 class ForwardPresenter(
     private val viewState: ForwardView,
